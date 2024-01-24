@@ -36,10 +36,10 @@ void loop() {
 
 void lamp(long distance) {
     int mode = HIGH;
-    for (int = 0; i < distance; i++) {
+    for(int i = 0; i < distance; i++) {
         digitalWrite(soundPin, mode);
         delay(10);
-        if (mode == HIGH) {
+        if(mode == HIGH) {
             mode = LOW;
         } else {
             mode = HIGH;
@@ -49,9 +49,9 @@ void lamp(long distance) {
 }
 
 void sound(long distance) {
-    if (distance == 0 || distance >= 15) {
+    if(distance == 0 || distance >= 15) {
         noTone(soundPin);
     } else {
-        tone(soundPin, distance * 100);
+        tone(soundPin, distance*100);
     }
 }
