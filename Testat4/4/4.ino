@@ -2,8 +2,6 @@ int trigger = 7;
 int echo = 8;
 int soundPin = 10;
 
-// Schallgeschwindigkeit in der Luft (in cm/ms)
-// wird benötigt, um die Laufzeit in eine Entfernung
 float speedOfSound = 0.03432;
 
 void setup() {
@@ -14,38 +12,28 @@ void setup() {
 }
 
 void loop() {
-
+    //Trigger steht die ganze Zeit auf LOW, braucht den Abstand nach der Messung
     digitalWrite(trigger, LOW);
-    delay(5);
+    delay(20);
 
+    //Trigger wird auf HIGH gesetzt um die Messung zu starten
     digitalWrite(trigger, HIGH);
+    //Das HIGH des Senders
     delayMicroseconds(10);
     digitalWrite(trigger, LOW);
 
+    //Wartet darauf dass der PIN von LOW auf HIGH geht 
+    //und misst die Zeit die der Pin braucht um wieder auf LOW zu gehen
     long time = pulseIn(echo, HIGH);
 
-    long distance = (time / 2) * speedOfSound;
+    double distance = (time / 2) * speedOfSound;
 
     Serial.print("cm: ");
     Serial.println(distance);
 
-    lamp(distance);
+    sound(distance);
 
     delay(500);
-}
-
-void lamp(long distance) {
-    int mode = HIGH;
-    for(int i = 0; i < distance; i++) {
-        digitalWrite(soundPin, mode);
-        delay(10);
-        if(mode == HIGH) {
-            mode = LOW;
-        } else {
-            mode = HIGH;
-        }
-    }
-
 }
 
 void sound(long distance) {
